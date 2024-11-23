@@ -37,7 +37,7 @@ welcome_txt:
 .byte "HELLO WORLD", 0
 
 .segment "TILES"
-.incbin "game.chr"
+.incbin "../data/game.chr"
 
 .CODE
 irq:
