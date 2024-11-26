@@ -1,8 +1,8 @@
 .include "constants.incl"
 
-.import copy_tiles_chr, get_tile_position, test_create_upscale
+.import copy_tiles_chr, write_data_to_chr
 .import oam, palette
-.importzp gamepad, nmi_ready, temp16bit_ptr, temp_8_bit_holder, temp_byte, temp_64_byte_storage, byte_holder
+.importzp gamepad, nmi_ready
 
 .segment "HEADER"
 INES_MAPPER 	= 0
@@ -93,7 +93,8 @@ wait_vblank2:
 	jsr copy_tiles_chr
 	
 	; testing write to CHR RAM
-	jsr test_create_upscale
+	jsr write_data_to_chr
+	; jsr test_create_upscale
 
 	; Enable V-Blank
 	lda #%10001000
@@ -217,7 +218,7 @@ text_loop:
 
     ldx #255                                ; Just padding
 padding:
-	lda #$00
+	lda #$10
 	sta PPU_VRAM_IO
 	dex
 	cpx #0
@@ -225,16 +226,16 @@ padding:
 	jmp padding
 :
 
-	lda #$C0
+	lda #$78
 	sta PPU_VRAM_IO
 
-	lda #$C2
+	lda #$7A
 	sta PPU_VRAM_IO
 
-    lda #$C0
+    lda #$78
 	sta PPU_VRAM_IO
 
-	lda #$C2
+	lda #$7A
 	sta PPU_VRAM_IO
 
     ldx #28                                ; Just padding
@@ -247,16 +248,16 @@ more_padding:
 	jmp more_padding
 :
 
-    lda #$C1
+    lda #$79
 	sta PPU_VRAM_IO
 
-	lda #$C3
+	lda #$7B
 	sta PPU_VRAM_IO
 
-    lda #$C1
+    lda #$79
 	sta PPU_VRAM_IO
 
-	lda #$C3
+	lda #$7B
 	sta PPU_VRAM_IO
 
 ; End temp Code for upscale
